@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 @Service
 public class OrderService {
@@ -52,5 +54,34 @@ public class OrderService {
             }
         });
         return messages;
+    }
+
+    public List<String> getOrdersByGrade() {
+        List<String> orders = new ArrayList<>();
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        StreamObserver<String> sink = userService.getUsernameByGrade(new StreamObserver<String>() {
+            @Override
+            public void onNext(String data) {
+                System.out.println("客户端接收数据：" + data);
+                String orderId = UUID.randomUUID().toString();
+                orders.add("name: " + data + "  orderId: " + orderId);
+                System.out.println(orders);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                future.complete(null);
+            }
+        });
+        // 发送信息给服务端
+        sink.onNext("vip");
+        sink.onCompleted();
+        future.join();
+        return orders;
     }
 }

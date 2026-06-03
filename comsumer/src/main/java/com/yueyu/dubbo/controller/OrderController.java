@@ -16,6 +16,6 @@ public class OrderController {
 
     @GetMapping("/order")
     public List<String> getOrder(){
-        return orderService.getOrderBySERVERSTREAM();
+        return orderService.getOrdersByGrade();
     }
 }

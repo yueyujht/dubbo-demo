@@ -10,7 +10,7 @@ public interface UserService {
     default void getUsers(String message, StreamObserver<String> response){};
 
     // 调用模式-CLIENT-STREAM  /  BI-STREAM  客户端=>服务端 服务端=>客户端
-    default StreamObserver<String> getOrders(StreamObserver<String> response){
+    default StreamObserver<String> getUsernameByGrade(StreamObserver<String> response){
         return response;
     }
 }
