@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: provider
+
+server:
+  port: 8080
+
+dubbo:
+  application:
+    name: provider-application
+  protocol:
+    name: tri
+    port: 20880
+  registry:
+    address: nacos://localhost:8848
+    username: nacos
+    password: nacos
+    register-mode: instance

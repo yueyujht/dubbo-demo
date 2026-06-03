@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: comsumer
+
+server:
+  port: 8081
+
+dubbo:
+  application:
+    name: comsumer-application
+  protocol:
+    name: tri
+    port: 20880
+  registry:
+    address: nacos://localhost:8848
+    username: nacos
+    password: nacos
